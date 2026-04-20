@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neni Calories Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="widget-container">
+        
+        <!-- Header Section -->
+        <div class="header">
+            <h2 class="title">Neni Calories Tracker</h2>
+            <div class="date-display" id="date-display">Lunes, 20 de Abril</div>
+        </div>
+
+        <!-- Progress Ring Section -->
+        <div class="progress-section">
+            <div class="progress-ring-container">
+                <svg class="progress-ring" width="200" height="200">
+                    <defs>
+                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" stop-color="var(--btn-grad-start)" />
+                            <stop offset="100%" stop-color="var(--btn-grad-end)" />
+                        </linearGradient>
+                    </defs>
+                    <circle class="progress-ring-track" cx="100" cy="100" r="85"></circle>
+                    <circle class="progress-ring-fill" cx="100" cy="100" r="85" id="progress-circle"></circle>
+                </svg>
+                <div class="progress-info">
+                    <div class="percentage-text" id="percentage-text">0%</div>
+                    <div class="calorie-label" id="label-calories">CALORÍAS</div>
+                    <div class="calorie-count">
+                        <span id="current-calories">0</span> / <span id="goal-calories">2,000</span> kcal
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Section -->
+        <div class="input-section">
+            <input type="number" id="calorie-input" class="calorie-input" placeholder="Añadir kcal..." min="1">
+            <button class="add-btn" id="add-btn" title="Añadir Calorías">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="12" y1="5" x2="12" y2="19"></line>
+                    <line x1="5" y1="12" x2="19" y2="12"></line>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Breakdown Section -->
+        <div class="breakdown-section">
+            <div class="macro-item">
+                <div class="macro-icon">✨</div>
+                <div class="macro-value" id="protein-value">0g</div>
+                <div class="macro-label" id="label-protein">Proteína</div>
+            </div>
+            <div class="macro-item">
+                <div class="macro-icon">💖</div>
+                <div class="macro-value" id="carbs-value">0g</div>
+                <div class="macro-label" id="label-carbs">Carbs</div>
+            </div>
+            <div class="macro-item">
+                <div class="macro-icon">🌸</div>
+                <div class="macro-value" id="fats-value">0g</div>
+                <div class="macro-label" id="label-fats">Grasas</div>
+            </div>
+        </div>
+
+        <!-- Footer / Phrase Section -->
+        <div class="footer-section">
+            <p class="motivational-phrase" id="motivational-phrase">
+                "Contar mis calorías no es una restricción, es el mapa para nutrir mi cuerpo con la elegancia y el amor que merece."
+            </p>
+            <div class="footer-controls">
+                <button class="settings-btn" id="reset-btn" title="Reiniciar Día">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                        <path d="M3 3v5h5"></path>
+                    </svg>
+                </button>
+                <button class="settings-btn" id="settings-toggle-btn" title="Configuración">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"></circle>
+                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <!-- Settings Panel -->
+        <div class="settings-panel" id="settings-panel">
+            <div class="settings-header">
+                <h3 id="settings-title">Personalizar</h3>
+                <button class="close-btn" id="close-settings">&times;</button>
+            </div>
+            
+            <div class="setting-group">
+                <label id="label-theme">Color de Tema</label>
+                <div class="color-options">
+                    <div class="color-dot active" data-color="pink" style="background: linear-gradient(135deg, #FDF2F5 50%, #F69AB6 50%);"></div>
+                    <div class="color-dot" data-color="matcha" style="background: linear-gradient(135deg, #F3F9F5 50%, #A8D5BA 50%);"></div>
+                    <div class="color-dot" data-color="lavender" style="background: linear-gradient(135deg, #F6F5FB 50%, #B4AEE8 50%);"></div>
+                    <div class="color-dot" data-color="mocha" style="background: linear-gradient(135deg, #FBF8F6 50%, #D2B48C 50%);"></div>
+                    <div class="color-dot" data-color="ice" style="background: linear-gradient(135deg, #F4F9FF 50%, #A2D2FF 50%);"></div>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <label id="label-font">Tipografía (Números)</label>
+                <div class="font-options">
+                    <button class="font-btn active" data-font="serif" style="font-family: 'Playfair Display', serif;">Elegante</button>
+                    <button class="font-btn" data-font="sans" style="font-family: 'Inter', sans-serif;">Moderna</button>
+                    <button class="font-btn" data-font="soft" style="font-family: 'Quicksand', sans-serif;">Suave</button>
+                    <button class="font-btn" data-font="script" style="font-family: 'Caveat', cursive;">Creativa</button>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <label id="label-lang">Idioma</label>
+                <div class="lang-options">
+                    <button class="lang-btn active" data-lang="es">Español</button>
+                    <button class="lang-btn" data-lang="en">English</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
