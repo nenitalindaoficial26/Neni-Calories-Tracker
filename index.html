@@ -19,7 +19,7 @@
         <!-- Progress Ring Section -->
         <div class="progress-section">
             <div class="progress-ring-container">
-                <svg class="progress-ring" width="240" height="240">
+                <svg class="progress-ring" viewBox="0 0 240 240">
                     <defs>
                         <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
                             <stop offset="0%" stop-color="var(--btn-grad-start)" />
@@ -39,54 +39,57 @@
             </div>
         </div>
 
-        <!-- Input Section -->
-        <div class="input-section">
-            <input type="number" id="calorie-input" class="calorie-input" placeholder="Añadir kcal..." min="1">
-            <button class="add-btn" id="add-btn" title="Añadir Calorías">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                </svg>
-            </button>
-        </div>
-
-        <!-- Breakdown Section -->
-        <div class="breakdown-section">
-            <div class="macro-item">
-                <div class="macro-icon">✨</div>
-                <div class="macro-value" id="protein-value">0g</div>
-                <div class="macro-label" id="label-protein">Proteína</div>
-            </div>
-            <div class="macro-item">
-                <div class="macro-icon">💖</div>
-                <div class="macro-value" id="carbs-value">0g</div>
-                <div class="macro-label" id="label-carbs">Carbs</div>
-            </div>
-            <div class="macro-item">
-                <div class="macro-icon">🌸</div>
-                <div class="macro-value" id="fats-value">0g</div>
-                <div class="macro-label" id="label-fats">Grasas</div>
-            </div>
-        </div>
-
-        <!-- Footer / Phrase Section -->
-        <div class="footer-section">
-            <p class="motivational-phrase" id="motivational-phrase">
-                "Contar mis calorías no es una restricción, es el mapa para nutrir mi cuerpo con la elegancia y el amor que merece."
-            </p>
-            <div class="footer-controls">
-                <button class="settings-btn" id="reset-btn" title="Reiniciar Día">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
-                        <path d="M3 3v5h5"></path>
+        <!-- Group for Horizontal Layout -->
+        <div class="main-content-group">
+            <!-- Input Section -->
+            <div class="input-section">
+                <input type="number" id="calorie-input" class="calorie-input" placeholder="Añadir kcal..." min="1">
+                <button class="add-btn" id="add-btn" title="Añadir Calorías">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
                     </svg>
                 </button>
-                <button class="settings-btn" id="settings-toggle-btn" title="Configuración">
-                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="3"></circle>
-                        <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                    </svg>
-                </button>
+            </div>
+
+            <!-- Breakdown Section -->
+            <div class="breakdown-section">
+                <div class="macro-item">
+                    <div class="macro-icon">✨</div>
+                    <div class="macro-value" id="protein-value">0g</div>
+                    <div class="macro-label" id="label-protein">Proteína</div>
+                </div>
+                <div class="macro-item">
+                    <div class="macro-icon">💖</div>
+                    <div class="macro-value" id="carbs-value">0g</div>
+                    <div class="macro-label" id="label-carbs">Carbs</div>
+                </div>
+                <div class="macro-item">
+                    <div class="macro-icon">🌸</div>
+                    <div class="macro-value" id="fats-value">0g</div>
+                    <div class="macro-label" id="label-fats">Grasas</div>
+                </div>
+            </div>
+
+            <!-- Footer / Phrase Section -->
+            <div class="footer-section">
+                <p class="motivational-phrase" id="motivational-phrase">
+                    "Contar mis calorías no es una restricción, es el mapa para nutrir mi cuerpo con la elegancia y el amor que merece."
+                </p>
+                <div class="footer-controls">
+                    <button class="settings-btn" id="reset-btn" title="Reiniciar Día">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+                            <path d="M3 3v5h5"></path>
+                        </svg>
+                    </button>
+                    <button class="settings-btn" id="settings-toggle-btn" title="Configuración">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+                        </svg>
+                    </button>
+                </div>
             </div>
         </div>
 
@@ -123,6 +126,14 @@
                 <div class="lang-options">
                     <button class="lang-btn active" data-lang="es">Español</button>
                     <button class="lang-btn" data-lang="en">English</button>
+                </div>
+            </div>
+
+            <div class="setting-group">
+                <label id="label-mode">Modo de Layout</label>
+                <div class="mode-options">
+                    <button class="mode-btn active" data-mode="vertical" id="btn-vertical">Vertical</button>
+                    <button class="mode-btn" data-mode="horizontal" id="btn-horizontal">Horizontal</button>
                 </div>
             </div>
         </div>
