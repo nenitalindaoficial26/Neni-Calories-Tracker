@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (calorieInput) {
         calorieInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') addBtn.click();
+            if (e.key === 'Enter' && addBtn) addBtn.click();
         });
     }
 
@@ -174,13 +174,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Settings Event Listeners ---
     if (settingsToggleBtn) {
         settingsToggleBtn.addEventListener('click', () => {
-            settingsPanel.classList.add('active');
+            if (settingsPanel) settingsPanel.classList.add('active');
         });
     }
 
     if (closeSettingsBtn) {
         closeSettingsBtn.addEventListener('click', () => {
-            settingsPanel.classList.remove('active');
+            if (settingsPanel) settingsPanel.classList.remove('active');
         });
     }
 
@@ -219,8 +219,11 @@ document.addEventListener('DOMContentLoaded', () => {
             modeBtns.forEach(b => b.classList.remove('active'));
             e.target.classList.add('active');
             const mode = e.target.getAttribute('data-mode');
-            if (mode === 'horizontal') widgetContainer.classList.add('horizontal');
-            else widgetContainer.classList.remove('horizontal');
+            if (mode === 'horizontal') {
+                if (widgetContainer) widgetContainer.classList.add('horizontal');
+            } else {
+                if (widgetContainer) widgetContainer.classList.remove('horizontal');
+            }
         });
     });
 
