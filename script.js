@@ -1,5 +1,6 @@
-document.addEventListener('DOMContentLoaded', () => {
+ document.addEventListener('DOMContentLoaded', () => {
     // --- Elements ---
+    const widgetContainer = document.querySelector('.widget-container');
     const dateDisplay = document.getElementById('date-display');
     const calorieInput = document.getElementById('calorie-input');
     const addBtn = document.getElementById('add-btn');
@@ -22,6 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const colorDots = document.querySelectorAll('.color-dot');
     const fontBtns = document.querySelectorAll('.font-btn');
     const langBtns = document.querySelectorAll('.lang-btn');
+    const modeBtns = document.querySelectorAll('.mode-btn');
 
     // Labels for Translation
     const labelCalories = document.getElementById('label-calories');
@@ -32,14 +34,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const labelTheme = document.getElementById('label-theme');
     const labelFont = document.getElementById('label-font');
     const labelLang = document.getElementById('label-lang');
+    const labelMode = document.getElementById('label-mode');
 
     // --- State ---
     let totalCalories = 0;
     const goalCalories = 2000;
     let currentLang = 'es';
     
-    const circleRadius = progressCircle.r.baseVal.value;
-    const circumference = circleRadius * 2 * Math.PI;
+    // Circumference is fixed because logical viewBox is fixed at 240x240
+    // r = 105
+    const circumference = 105 * 2 * Math.PI;
 
     // Dictionaries
     const dict = {
@@ -53,6 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
             theme: "Color de Tema",
             font: "Tipografía (Números)",
             lang: "Idioma",
+            mode: "Modo de Layout",
             phrases: [
                 '"Contar mis calorías no es una restricción, es el mapa para nutrir mi cuerpo con la elegancia y el amor que merece."',
                 '"Nutriendo tu brillo hoy. Un paso a la vez, con amor y consciencia."',
@@ -71,6 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
             theme: "Theme Color",
             font: "Typography (Numbers)",
             lang: "Language",
+            mode: "Layout Mode",
             phrases: [
                 '"Counting my calories isn\'t a restriction, it\'s the map to nourish my body with the elegance and love it deserves."',
                 '"Nourishing your glow today. One step at a time, with love and awareness."',
@@ -147,6 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
         labelTheme.textContent = texts.theme;
         labelFont.textContent = texts.font;
         labelLang.textContent = texts.lang;
+        labelMode.textContent = texts.mode;
         
         updateDate();
         updateProgress(); // Recalculate phrase
@@ -223,6 +230,20 @@ document.addEventListener('DOMContentLoaded', () => {
             langBtns.forEach(b => b.classList.remove('active'));
             e.target.classList.add('active');
             applyLanguage(e.target.getAttribute('data-lang'));
+        });
+    });
+
+    // Layout Mode Switch
+    modeBtns.forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            modeBtns.forEach(b => b.classList.remove('active'));
+            e.target.classList.add('active');
+            const mode = e.target.getAttribute('data-mode');
+            if (mode === 'horizontal') {
+                widgetContainer.classList.add('horizontal');
+            } else {
+                widgetContainer.classList.remove('horizontal');
+            }
         });
     });
 });
