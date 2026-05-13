@@ -1,4 +1,4 @@
- document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     // --- Elements ---
     const widgetContainer = document.querySelector('.widget-container');
     const dateDisplay = document.getElementById('date-display');
@@ -41,8 +41,6 @@
     const goalCalories = 2000;
     let currentLang = 'es';
     
-    // Circumference is fixed because logical viewBox is fixed at 240x240
-    // r = 105
     const circumference = 105 * 2 * Math.PI;
 
     // Dictionaries
@@ -87,55 +85,44 @@
         }
     };
 
-    // Set initial stroke-dasharray and offset
-    progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
-    progressCircle.style.strokeDashoffset = circumference;
-
     // --- Core Functions ---
     const updateDate = () => {
         const options = { weekday: 'long', month: 'long', day: 'numeric' };
         const today = new Date();
         const locale = currentLang === 'es' ? 'es-ES' : 'en-US';
         let dateString = today.toLocaleDateString(locale, options);
-        // Capitalize first letter
         dateString = dateString.charAt(0).toUpperCase() + dateString.slice(1);
-        dateDisplay.textContent = dateString;
+        if (dateDisplay) dateDisplay.textContent = dateString;
     };
 
     const updateProgress = () => {
-        // Calculate progress percentage
         let percentage = (totalCalories / goalCalories) * 100;
         const cappedPercentage = Math.min(percentage, 100);
-        
-        // Update circle offset
         const offset = circumference - (cappedPercentage / 100) * circumference;
-        progressCircle.style.strokeDashoffset = offset;
         
-        // Update text
-        percentageText.textContent = `${Math.round(percentage)}%`;
-        currentCaloriesText.textContent = totalCalories.toLocaleString();
+        if (progressCircle) {
+            progressCircle.style.strokeDasharray = `${circumference} ${circumference}`;
+            progressCircle.style.strokeDashoffset = offset;
+        }
+        
+        if (percentageText) percentageText.textContent = `${Math.round(percentage)}%`;
+        if (currentCaloriesText) currentCaloriesText.textContent = totalCalories.toLocaleString();
 
-        // Update Macros
         const protein = Math.round((totalCalories * 0.30) / 4);
         const carbs = Math.round((totalCalories * 0.40) / 4);
         const fats = Math.round((totalCalories * 0.30) / 9);
 
-        proteinValue.textContent = `${protein}g`;
-        carbsValue.textContent = `${carbs}g`;
-        fatsValue.textContent = `${fats}g`;
+        if (proteinValue) proteinValue.textContent = `${protein}g`;
+        if (carbsValue) carbsValue.textContent = `${carbs}g`;
+        if (fatsValue) fatsValue.textContent = `${fats}g`;
 
-        // Update Phrase based on language and progress
         const phrases = dict[currentLang].phrases;
-        if (totalCalories === 0) {
-            motivationalPhrase.textContent = phrases[0];
-        } else if (percentage < 30) {
-            motivationalPhrase.textContent = phrases[1];
-        } else if (percentage < 70) {
-            motivationalPhrase.textContent = phrases[2];
-        } else if (percentage < 100) {
-            motivationalPhrase.textContent = phrases[3];
-        } else {
-            motivationalPhrase.textContent = phrases[4];
+        if (motivationalPhrase) {
+            if (totalCalories === 0) motivationalPhrase.textContent = phrases[0];
+            else if (percentage < 30) motivationalPhrase.textContent = phrases[1];
+            else if (percentage < 70) motivationalPhrase.textContent = phrases[2];
+            else if (percentage < 100) motivationalPhrase.textContent = phrases[3];
+            else motivationalPhrase.textContent = phrases[4];
         }
     };
 
@@ -143,88 +130,82 @@
         currentLang = lang;
         const texts = dict[lang];
         
-        labelCalories.textContent = texts.calories;
-        calorieInput.placeholder = texts.addKcal;
-        labelProtein.textContent = texts.protein;
-        labelCarbs.textContent = texts.carbs;
-        labelFats.textContent = texts.fats;
+        if (labelCalories) labelCalories.textContent = texts.calories;
+        if (calorieInput) calorieInput.placeholder = texts.addKcal;
+        if (labelProtein) labelProtein.textContent = texts.protein;
+        if (labelCarbs) labelCarbs.textContent = texts.carbs;
+        if (labelFats) labelFats.textContent = texts.fats;
         
-        settingsTitle.textContent = texts.settingsTitle;
-        labelTheme.textContent = texts.theme;
-        labelFont.textContent = texts.font;
-        labelLang.textContent = texts.lang;
-        labelMode.textContent = texts.mode;
+        if (settingsTitle) settingsTitle.textContent = texts.settingsTitle;
+        if (labelTheme) labelTheme.textContent = texts.theme;
+        if (labelFont) labelFont.textContent = texts.font;
+        if (labelLang) labelLang.textContent = texts.lang;
+        if (labelMode) labelMode.textContent = texts.mode;
         
         updateDate();
-        updateProgress(); // Recalculate phrase
+        updateProgress();
     };
 
-    // --- Init ---
-    applyLanguage('es');
-
     // --- Action Event Listeners ---
-    addBtn.addEventListener('click', () => {
-        const addedValue = parseInt(calorieInput.value);
-        if (!isNaN(addedValue) && addedValue > 0) {
-            totalCalories += addedValue;
+    if (addBtn) {
+        addBtn.addEventListener('click', () => {
+            const addedValue = parseInt(calorieInput.value);
+            if (!isNaN(addedValue) && addedValue > 0) {
+                totalCalories += addedValue;
+                updateProgress();
+                calorieInput.value = '';
+            }
+        });
+    }
+
+    if (calorieInput) {
+        calorieInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') addBtn.click();
+        });
+    }
+
+    if (resetBtn) {
+        resetBtn.addEventListener('click', () => {
+            totalCalories = 0;
             updateProgress();
-            calorieInput.value = ''; // Clear input
-        }
-    });
-
-    calorieInput.addEventListener('keypress', (e) => {
-        if (e.key === 'Enter') {
-            addBtn.click();
-        }
-    });
-
-    resetBtn.addEventListener('click', () => {
-        totalCalories = 0;
-        updateProgress();
-    });
+        });
+    }
 
     // --- Settings Event Listeners ---
-    settingsToggleBtn.addEventListener('click', () => {
-        settingsPanel.classList.add('active');
-    });
+    if (settingsToggleBtn) {
+        settingsToggleBtn.addEventListener('click', () => {
+            settingsPanel.classList.add('active');
+        });
+    }
 
-    closeSettingsBtn.addEventListener('click', () => {
-        settingsPanel.classList.remove('active');
-    });
+    if (closeSettingsBtn) {
+        closeSettingsBtn.addEventListener('click', () => {
+            settingsPanel.classList.remove('active');
+        });
+    }
 
-    // Theme Switch
     colorDots.forEach(dot => {
         dot.addEventListener('click', (e) => {
             colorDots.forEach(d => d.classList.remove('active'));
             e.target.classList.add('active');
             const theme = e.target.getAttribute('data-color');
-            if (theme === 'pink') {
-                document.documentElement.removeAttribute('data-theme');
-            } else {
-                document.documentElement.setAttribute('data-theme', theme);
-            }
+            if (theme === 'pink') document.documentElement.removeAttribute('data-theme');
+            else document.documentElement.setAttribute('data-theme', theme);
         });
     });
 
-    // Font Switch
     fontBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             fontBtns.forEach(b => b.classList.remove('active'));
             e.target.classList.add('active');
             const fontChoice = e.target.getAttribute('data-font');
-            if (fontChoice === 'sans') {
-                document.documentElement.style.setProperty('--font-serif', "'Inter', sans-serif");
-            } else if (fontChoice === 'soft') {
-                document.documentElement.style.setProperty('--font-serif', "'Quicksand', sans-serif");
-            } else if (fontChoice === 'script') {
-                document.documentElement.style.setProperty('--font-serif', "'Caveat', cursive");
-            } else {
-                document.documentElement.style.setProperty('--font-serif', "'Playfair Display', serif");
-            }
+            if (fontChoice === 'sans') document.documentElement.style.setProperty('--font-serif', "'Inter', sans-serif");
+            else if (fontChoice === 'soft') document.documentElement.style.setProperty('--font-serif', "'Quicksand', sans-serif");
+            else if (fontChoice === 'script') document.documentElement.style.setProperty('--font-serif', "'Caveat', cursive");
+            else document.documentElement.style.setProperty('--font-serif', "'Playfair Display', serif");
         });
     });
 
-    // Language Switch
     langBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             langBtns.forEach(b => b.classList.remove('active'));
@@ -233,17 +214,16 @@
         });
     });
 
-    // Layout Mode Switch
     modeBtns.forEach(btn => {
         btn.addEventListener('click', (e) => {
             modeBtns.forEach(b => b.classList.remove('active'));
             e.target.classList.add('active');
             const mode = e.target.getAttribute('data-mode');
-            if (mode === 'horizontal') {
-                widgetContainer.classList.add('horizontal');
-            } else {
-                widgetContainer.classList.remove('horizontal');
-            }
+            if (mode === 'horizontal') widgetContainer.classList.add('horizontal');
+            else widgetContainer.classList.remove('horizontal');
         });
     });
+
+    // --- Init ---
+    applyLanguage('es');
 });
