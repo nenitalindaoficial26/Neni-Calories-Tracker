@@ -55,8 +55,8 @@ body {
     overflow-x: hidden;
     min-height: 100vh;
     margin: 0;
-    zoom: 0.85; /* Proportional scaling for smaller widget size */
-    -moz-transform: scale(0.85);
+    zoom: 0.92; /* Adjusted proportional scaling */
+    -moz-transform: scale(0.92);
     -moz-transform-origin: top center;
 }
 
