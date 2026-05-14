@@ -3,142 +3,352 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neni Calories Tracker</title>
-    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Quicksand:wght@400;600;700&display=swap" rel="stylesheet">
+    <title>Neni Wellness Dashboard</title>
+    <!-- Google Fonts: 8 Aesthetic Options -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&family=Quicksand:wght@400;700&family=Playfair+Display:ital,wght@0,700;1,700&family=Caveat:wght@700&family=Outfit:wght@400;700&family=Montserrat:wght@400;700&family=Dancing+Script:wght@700&family=Comfortaa:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body class="light-mode">
+    <!-- Background Decor -->
+    <div class="ambient-glow"></div>
+    <div class="sparkles-container" id="sparkles-container"></div>
+
     <div class="widget-container">
         
-        <!-- Header Section -->
-        <div class="header">
-            <h2 class="title">Neni Calories Tracker</h2>
-            <div class="date-display" id="date-display">Lunes, 20 de Abril</div>
-        </div>
+        <!-- Top Header -->
+        <header class="dashboard-header">
+            <div class="header-spacer"></div> <!-- Spacer to help center title -->
+            <div class="title-group">
+                <h1 class="title" id="main-title">Neni Calories Tracker</h1>
+                <div class="date-display" id="date-display">...</div>
+            </div>
+            <div class="theme-toggle" id="theme-toggle-btn">
+                <div class="toggle-track">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon sun"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="toggle-icon moon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                    <div class="toggle-thumb"></div>
+                </div>
+            </div>
+        </header>
 
-        <!-- Progress Ring Section -->
-        <div class="progress-section">
-            <div class="progress-ring-container">
-                <svg class="progress-ring" viewBox="0 0 240 240">
-                    <defs>
-                        <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="var(--btn-grad-start)" />
-                            <stop offset="100%" stop-color="var(--btn-grad-end)" />
-                        </linearGradient>
-                    </defs>
-                    <circle class="progress-ring-track" cx="120" cy="120" r="105"></circle>
-                    <circle class="progress-ring-fill" cx="120" cy="120" r="105" id="progress-circle"></circle>
-                </svg>
-                <div class="progress-info">
-                    <div class="percentage-text" id="percentage-text">0%</div>
-                    <div class="calorie-label" id="label-calories">CALORÍAS</div>
-                    <div class="calorie-count">
-                        <span id="current-calories">0</span> / <span id="goal-calories">2,000</span> kcal
+        <!-- Dynamic Page Container -->
+        <div id="pages-wrapper">
+            
+            <!-- PAGE 1: HOME / INICIO -->
+            <section id="page-home" class="page active">
+                <main class="dashboard-content">
+                    <div class="hero-section">
+                        <div class="progress-card glass">
+                            <div class="progress-ring-wrapper">
+                                <svg class="progress-ring" viewBox="0 0 240 240">
+                                    <defs>
+                                        <filter id="glow">
+                                            <feGaussianBlur stdDeviation="5" result="coloredBlur"/>
+                                            <feMerge>
+                                                <feMergeNode in="coloredBlur"/>
+                                                <feMergeNode in="SourceGraphic"/>
+                                            </feMerge>
+                                        </filter>
+                                    </defs>
+                                    <circle class="progress-ring-track" cx="120" cy="120" r="100"></circle>
+                                    <circle class="progress-ring-fill" cx="120" cy="120" r="100" id="progress-circle" filter="url(#glow)"></circle>
+                                </svg>
+                                <div class="progress-labels">
+                                    <span class="percentage" id="percentage-text">0%</span>
+                                    <span class="label" id="label-calories">CALORÍAS</span>
+                                    <span class="kcal-display"><span id="current-calories">0</span> / <span id="goal-calories">2,000</span> kcal</span>
+                                </div>
+                            </div>
+                            <div class="status-badge">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.5 3.5 6.5 1.5 2 2 4.5 2 7a6 6 0 1 1-12 0c0-1.5.5-3 1.5-4.5.5 1 1 2 1.5 3z"></path></svg>
+                                <span id="badge-text">0 kcal hoy</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="actions-section">
+                        <div class="input-card glass">
+                            <div class="input-wrapper">
+                                <input type="number" id="quick-calorie-input" placeholder="Añadir kcal rápida..." min="1">
+                                <button id="quick-add-btn" class="glow-btn">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="macros-grid">
+                            <div class="macro-card neumorph protein">
+                                <div class="macro-icon-wrapper">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path></svg>
+                                </div>
+                                <div class="macro-info">
+                                    <span class="macro-val" id="protein-value">0g</span>
+                                    <span class="macro-name" id="macro-protein">PROTEÍNA</span>
+                                </div>
+                                <div class="macro-progress"><div class="bar-fill" id="protein-bar"></div></div>
+                                <span class="macro-percent" id="protein-percent">0%</span>
+                            </div>
+                            <div class="macro-card neumorph carbs">
+                                <div class="macro-icon-wrapper">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                                </div>
+                                <div class="macro-info">
+                                    <span class="macro-val" id="carbs-value">0g</span>
+                                    <span class="macro-name" id="macro-carbs">CARBS</span>
+                                </div>
+                                <div class="macro-progress"><div class="bar-fill" id="carbs-bar"></div></div>
+                                <span class="macro-percent" id="carbs-percent">0%</span>
+                            </div>
+                            <div class="macro-card neumorph fats">
+                                <div class="macro-icon-wrapper">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                                </div>
+                                <div class="macro-info">
+                                    <span class="macro-val" id="fats-value">0g</span>
+                                    <span class="macro-name" id="macro-fats">GRASAS</span>
+                                </div>
+                                <div class="macro-progress"><div class="bar-fill" id="fats-bar"></div></div>
+                                <span class="macro-percent" id="fats-percent">0%</span>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+
+                <footer class="dashboard-footer">
+                    <div class="footer-card glass summary-panel">
+                        <div class="panel-header">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                            <h3 id="label-summary">RESUMEN DE HOY</h3>
+                        </div>
+                        <div class="summary-list">
+                            <div class="summary-item">
+                                <div class="item-icon fire"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.5 3.5 6.5 1.5 2 2 4.5 2 7a6 6 0 1 1-12 0c0-1.5.5-3 1.5-4.5.5 1 1 2 1.5 3z"></path></svg></div>
+                                <div class="item-text"><p id="label-consumed">Calorías consumidas</p><small id="label-goal-text">Meta: 2,000 kcal</small></div>
+                                <span class="item-val"><span id="summary-current">0</span> kcal</span>
+                            </div>
+                            <div class="summary-item">
+                                <div class="item-icon water"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path></svg></div>
+                                <div class="item-text"><p id="label-remaining">Faltan</p><small id="label-remaining-text">para tu meta</small></div>
+                                <span class="item-val highlight"><span id="summary-remain">2,000</span> kcal</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-card glass meals-panel">
+                        <div class="panel-header">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                            <h3 id="label-recent">COMIDAS RECIENTES</h3>
+                        </div>
+                        <div id="recent-meals-container">
+                            <div class="meals-placeholder"><div class="dish-icon"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg></div><p id="label-no-meals">Aún no has añadido comidas.</p></div>
+                        </div>
+                    </div>
+                    <div class="footer-card glass quote-panel">
+                        <div class="quote-content" id="quote-container">
+                            <svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" class="quote-icon"><path d="M14.017 21L14.017 18C14.017 16.8954 14.9124 16 16.017 16H19.017C19.5693 16 20.017 15.5523 20.017 15V9C20.017 8.44772 19.5693 8 19.017 8H16.017C14.9124 8 14.017 7.10457 14.017 6V5C14.017 3.34315 15.3601 2 17.017 2H19.017C20.6739 2 22.017 3.34315 22.017 5V15C22.017 18.3137 19.3307 21 16.017 21H14.017ZM3.01701 21L3.01701 18C3.01701 16.8954 3.91244 16 5.01701 16H8.01701C8.56929 16 9.01701 15.5523 9.01701 15V9C9.01701 8.44772 8.56929 8 8.01701 8H5.01701C3.91244 8 3.01701 7.10457 3.01701 6V5C3.01701 3.34315 4.36016 2 6.01701 2H8.01701C9.67386 2 11.017 3.34315 11.017 5V15C11.017 18.3137 8.33072 21 5.01701 21H3.01701Z"></path></svg>
+                            <p class="quote-text" id="quote-text">...</p>
+                        </div>
+                    </div>
+                </footer>
+            </section>
+
+            <!-- PAGE 2: STATISTICS / ESTADÍSTICAS -->
+            <section id="page-stats" class="page">
+                <div class="stats-grid">
+                    <div class="stats-card glass large">
+                        <div class="panel-header">
+                            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                            <h3 id="label-weekly">CALORÍAS SEMANALES</h3>
+                        </div>
+                        <div class="chart-container" id="weekly-chart">
+                            <!-- Bars added by JS -->
+                        </div>
+                    </div>
+                    <div class="stats-card glass streak-card">
+                        <h3 id="label-streak">RACHA ACTUAL</h3>
+                        <div class="streak-circle">
+                            <div class="streak-content">
+                                <span class="streak-num" id="streak-num">0</span>
+                                <span class="streak-label" id="label-days">DÍAS</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="stats-card glass">
+                        <h3 id="label-habits">HÁBITOS SALUDABLES</h3>
+                        <div class="habits-list">
+                            <div class="habit-row"><span id="label-water">💧 Agua</span><div class="check" data-habit="water">✓</div></div>
+                            <div class="habit-row"><span id="label-veggies">🥗 Vegetales</span><div class="check" data-habit="veggies">✓</div></div>
+                            <div class="habit-row"><span id="label-steps">🏃 Pasos</span><div class="check" data-habit="steps">✓</div></div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            </section>
+
+            <!-- PAGE 3: HISTORY / HISTORIAL -->
+            <section id="page-history" class="page">
+                <div class="history-container glass">
+                    <div class="panel-header">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                        <h3 id="label-diary">DIARIO DE ALIMENTACIÓN</h3>
+                    </div>
+                    <div class="timeline" id="timeline-container">
+                        <!-- Items added by JS -->
+                    </div>
+                </div>
+            </section>
+
+            <!-- PAGE 4: SETTINGS / AJUSTES -->
+            <section id="page-settings" class="page">
+                <div class="settings-grid">
+                    <!-- Column 1 -->
+                    <div class="settings-col">
+                        <!-- Appearance -->
+                        <div class="glass settings-card">
+                            <div class="panel-header">
+                                <h3 id="label-appearance">Apariencia</h3>
+                            </div>
+                            <div class="setting-item">
+                                <span id="label-dark-mode">Modo Oscuro</span>
+                                <div class="switch" id="dark-mode-switch"></div>
+                            </div>
+                            <div class="setting-item">
+                                <span id="label-language">Idioma</span>
+                                <div class="lang-selector">
+                                    <button class="lang-btn active" data-lang="es">ES</button>
+                                    <button class="lang-btn" data-lang="en">EN</button>
+                                </div>
+                            </div>
+                            <div class="setting-item color-setting">
+                                <span id="label-theme-color">Color de Tema</span>
+                                <div class="color-dots">
+                                    <button class="color-dot pink active" data-color="pink"></button>
+                                    <button class="color-dot matcha" data-color="matcha"></button>
+                                    <button class="color-dot lavender" data-color="lavender"></button>
+                                    <button class="color-dot cream" data-color="cream"></button>
+                                    <button class="color-dot grey" data-color="grey"></button>
+                                    <button class="color-dot peach" data-color="peach"></button>
+                                    <button class="color-dot sky" data-color="sky"></button>
+                                    <button class="color-dot mint" data-color="mint"></button>
+                                    <button class="color-dot yellow" data-color="yellow"></button>
+                                    <button class="color-dot custom" data-color="custom" id="custom-color-dot"></button>
+                                    <input type="color" id="custom-color-picker" style="display:none">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Data Management -->
+                        <div class="glass settings-card">
+                            <div class="panel-header">
+                                <h3 id="label-data-management">Gestión de Datos</h3>
+                            </div>
+                            <div class="setting-item">
+                                <span id="label-reset-all">Reiniciar todo</span>
+                                <button class="delete-btn" id="reset-data-btn">
+                                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"></path><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Column 2 -->
+                    <div class="settings-col">
+                        <!-- Health Goals -->
+                        <div class="glass settings-card">
+                            <div class="panel-header">
+                                <h3 id="label-health-goals">Metas de Salud</h3>
+                            </div>
+                            <div class="setting-item">
+                                <span id="label-goal-cal">Meta Calorías</span>
+                                <input type="number" id="goal-input" class="mini-input">
+                            </div>
+                            <div class="setting-item">
+                                <span id="label-weight">Peso (kg)</span>
+                                <input type="number" id="weight-input" class="mini-input">
+                            </div>
+                        </div>
+
+                        <!-- Fonts -->
+                        <div class="glass settings-card">
+                            <div class="panel-header">
+                                <h3 id="label-fonts">Fuentes</h3>
+                            </div>
+                            <div class="font-selector">
+                                <button class="font-btn active" data-font="Inter" style="font-family: 'Inter';">Aa</button>
+                                <button class="font-btn" data-font="Quicksand" style="font-family: 'Quicksand';">Aa</button>
+                                <button class="font-btn" data-font="Playfair Display" style="font-family: 'Playfair Display';">Aa</button>
+                                <button class="font-btn" data-font="Caveat" style="font-family: 'Caveat';">Aa</button>
+                                <button class="font-btn" data-font="Outfit" style="font-family: 'Outfit';">Aa</button>
+                                <button class="font-btn" data-font="Montserrat" style="font-family: 'Montserrat';">Aa</button>
+                                <button class="font-btn" data-font="Dancing Script" style="font-family: 'Dancing Script';">Aa</button>
+                                <button class="font-btn" data-font="Comfortaa" style="font-family: 'Comfortaa';">Aa</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
         </div>
 
-        <!-- Group for Horizontal Layout -->
-        <div class="main-content-group">
-            <!-- Input Section -->
-            <div class="input-section">
-                <input type="number" id="calorie-input" class="calorie-input" placeholder="Añadir kcal..." min="1">
-                <button class="add-btn" id="add-btn" title="Añadir Calorías">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="12" y1="5" x2="12" y2="19"></line>
-                        <line x1="5" y1="12" x2="19" y2="12"></line>
-                    </svg>
+        <!-- Floating Bottom Nav -->
+        <nav class="floating-nav glass">
+            <button class="nav-item active" data-page="home">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <span class="nav-label" id="nav-home">Inicio</span>
+            </button>
+            <button class="nav-item" data-page="stats">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                <span class="nav-label" id="nav-stats">Stats</span>
+            </button>
+            <div class="nav-center-btn">
+                <button class="main-action-btn" id="open-modal-btn">
+                    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
                 </button>
             </div>
+            <button class="nav-item" data-page="history">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect></svg>
+                <span class="nav-label" id="nav-diary">Diario</span>
+            </button>
+            <button class="nav-item" data-page="settings">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                <span class="nav-label" id="nav-settings">Ajustes</span>
+            </button>
+        </nav>
 
-            <!-- Breakdown Section -->
-            <div class="breakdown-section">
-                <div class="macro-item">
-                    <div class="macro-icon">✨</div>
-                    <div class="macro-value" id="protein-value">0g</div>
-                    <div class="macro-label" id="label-protein">Proteína</div>
-                </div>
-                <div class="macro-item">
-                    <div class="macro-icon">💖</div>
-                    <div class="macro-value" id="carbs-value">0g</div>
-                    <div class="macro-label" id="label-carbs">Carbs</div>
-                </div>
-                <div class="macro-item">
-                    <div class="macro-icon">🌸</div>
-                    <div class="macro-value" id="fats-value">0g</div>
-                    <div class="macro-label" id="label-fats">Grasas</div>
-                </div>
-            </div>
-
-            <!-- Footer / Phrase Section -->
-            <div class="footer-section">
-                <p class="motivational-phrase" id="motivational-phrase">
-                    "Contar mis calorías no es una restricción, es el mapa para nutrir mi cuerpo con la elegancia y el amor que merece."
-                </p>
-                <div class="footer-controls">
-                    <button class="settings-btn" id="reset-btn" title="Reiniciar Día">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
-                            <path d="M3 3v5h5"></path>
-                        </svg>
-                    </button>
-                    <button class="settings-btn" id="settings-toggle-btn" title="Configuración">
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="12" cy="12" r="3"></circle>
-                            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
-                        </svg>
+        <!-- ADD MEAL MODAL -->
+        <div id="meal-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="label-add-meal-title">Añadir Comida</h2>
+                    <button class="icon-btn" id="close-modal-btn">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                     </button>
                 </div>
-            </div>
-        </div>
-
-        <!-- Settings Panel -->
-        <div class="settings-panel" id="settings-panel">
-            <div class="settings-header">
-                <h3 id="settings-title">Personalizar</h3>
-                <button class="close-btn" id="close-settings">&times;</button>
-            </div>
-            
-            <div class="setting-group">
-                <label id="label-theme">Color de Tema</label>
-                <div class="color-options">
-                    <div class="color-dot active" data-color="pink" style="background: linear-gradient(135deg, #FDF2F5 50%, #F69AB6 50%);"></div>
-                    <div class="color-dot" data-color="matcha" style="background: linear-gradient(135deg, #F3F9F5 50%, #A8D5BA 50%);"></div>
-                    <div class="color-dot" data-color="lavender" style="background: linear-gradient(135deg, #F6F5FB 50%, #B4AEE8 50%);"></div>
-                    <div class="color-dot" data-color="mocha" style="background: linear-gradient(135deg, #FBF8F6 50%, #D2B48C 50%);"></div>
-                    <div class="color-dot" data-color="ice" style="background: linear-gradient(135deg, #F4F9FF 50%, #A2D2FF 50%);"></div>
+                <div class="form-group">
+                    <label id="label-meal-name">Nombre de la comida</label>
+                    <input type="text" id="meal-name-input" class="form-input" placeholder="Ej: Ensalada César">
                 </div>
-            </div>
-
-            <div class="setting-group">
-                <label id="label-font">Tipografía (Números)</label>
-                <div class="font-options">
-                    <button class="font-btn active" data-font="serif" style="font-family: 'Playfair Display', serif;">Elegante</button>
-                    <button class="font-btn" data-font="sans" style="font-family: 'Inter', sans-serif;">Moderna</button>
-                    <button class="font-btn" data-font="soft" style="font-family: 'Quicksand', sans-serif;">Suave</button>
-                    <button class="font-btn" data-font="script" style="font-family: 'Caveat', cursive;">Creativa</button>
+                <div class="form-group">
+                    <label id="label-calories-form">Calorías (kcal)</label>
+                    <input type="number" id="meal-calories-input" class="form-input" placeholder="0">
                 </div>
-            </div>
-
-            <div class="setting-group">
-                <label id="label-lang">Idioma</label>
-                <div class="lang-options">
-                    <button class="lang-btn active" data-lang="es">Español</button>
-                    <button class="lang-btn" data-lang="en">English</button>
+                <div class="macro-inputs form-group">
+                    <div>
+                        <label>Prot (g)</label>
+                        <input type="number" id="meal-protein-input" class="form-input" value="0">
+                    </div>
+                    <div>
+                        <label>Carbs (g)</label>
+                        <input type="number" id="meal-carbs-input" class="form-input" value="0">
+                    </div>
+                    <div>
+                        <label>Fats (g)</label>
+                        <input type="number" id="meal-fats-input" class="form-input" value="0">
+                    </div>
                 </div>
-            </div>
-
-            <div class="setting-group">
-                <label id="label-mode">Modo de Layout</label>
-                <div class="mode-options">
-                    <button class="mode-btn active" data-mode="vertical" id="btn-vertical">Vertical</button>
-                    <button class="mode-btn" data-mode="horizontal" id="btn-horizontal">Horizontal</button>
-                </div>
+                <button class="primary-btn" id="save-meal-btn">GUARDAR</button>
             </div>
         </div>
 
     </div>
+
     <script src="script.js"></script>
 </body>
 </html>
